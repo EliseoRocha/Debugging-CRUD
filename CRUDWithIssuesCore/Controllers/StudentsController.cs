@@ -47,7 +47,7 @@ namespace CRUDWithIssuesCore.Controllers
             Student p = StudentDb.GetStudent(context, id);
 
             //show it on web page
-            return View();
+            return View(p);
         }
 
         [HttpPost]
@@ -56,6 +56,8 @@ namespace CRUDWithIssuesCore.Controllers
             if (ModelState.IsValid)
             {
                 StudentDb.Update(context, p);
+                context.Update(p);
+                context.SaveChanges();
                 ViewData["Message"] = "Product Updated!";
                 return View(p);
             }
@@ -76,6 +78,10 @@ namespace CRUDWithIssuesCore.Controllers
             Student p = StudentDb.GetStudent(context, id);
 
             StudentDb.Delete(context, p);
+
+            context.Students.Remove(p);
+
+            context.SaveChanges();
 
             return RedirectToAction("Index");
         }

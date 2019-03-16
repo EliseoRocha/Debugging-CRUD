@@ -11,6 +11,7 @@ namespace CRUDWithIssuesCore.Models
         {
             //Add student to context
             db.Students.Add(p);
+            db.SaveChanges();
             return p;
         }
 
@@ -36,9 +37,6 @@ namespace CRUDWithIssuesCore.Models
 
         public static void Update(SchoolContext context, Student p)
         {
-            //Mark the object as deleted
-            context.Students.Remove(p);
-
             //Send delete query to database
             context.SaveChanges();
         }
